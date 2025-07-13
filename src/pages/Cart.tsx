@@ -1,6 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -12,25 +13,34 @@ export const Cart = () => {
 
   if (cart.length === 0) {
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="p-6 bg-gray-900 text-white rounded-lg shadow-md text-center max-w-lg mx-auto mt-10"
-      >
-        <h2 className="text-2xl font-bold">Tu carrito está vacío</h2>
-        <p className="mt-4 text-gray-400">Agregá productos para verlos acá.</p>
-      </motion.div>
+      <main className="flex-grow flex flex-col items-center justify-center min-h-screen bg-[#0f0f0f] text-white px-4 gap-6">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="p-6 rounded-lg shadow-md text-center max-w-lg bg-[#1a1a1a] border border-green-500"
+        >
+          <h2 className="text-2xl font-bold text-green-300">Tu carrito está vacío</h2>
+          <p className="mt-4 text-green-100">Agregá productos para verlos acá.</p>
+        </motion.div>
+
+        <Link
+          to="/productos"
+          className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-3 rounded-md shadow-md transition"
+        >
+          Volver a la tienda
+        </Link>
+      </main>
     );
   }
 
   return (
-    <>
+    <main className="flex-grow bg-gradient-to-r from-gray-950 via-green-950 to-green-900 text-gray-100 min-h-screen py-10 px-4 sm:px-8">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
-        className="p-6 bg-gray-900 text-white rounded-xl shadow-lg space-y-6 max-w-5xl mx-auto mt-10"
+        className="p-6 bg-[#0f0f0f] text-white rounded-xl min-h-screen shadow-lg space-y-6 max-w-5xl mx-auto mt-10 border border-green-700"
       >
-        <h2 className="text-3xl font-bold mb-4">🛒 Tu carrito</h2>
+        <h2 className="text-3xl font-bold mb-4 text-green-300">🛒 Tu carrito</h2>
 
         <ul className="space-y-4">
           <AnimatePresence>
@@ -41,31 +51,33 @@ export const Cart = () => {
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: 20 }}
                 transition={{ duration: 0.2 }}
-                className="flex flex-col md:flex-row items-center justify-between bg-gray-800 p-4 rounded-xl shadow-md gap-4"
+                className="flex flex-col md:flex-row items-center justify-between bg-[#1a1a1a] p-4 rounded-xl border border-green-800 gap-4"
               >
                 <img
                   src={item.images[0]}
                   alt={item.title}
-                  className="w-24 h-24 object-cover rounded-md border border-gray-700"
+                  className="w-24 h-24 object-cover rounded-md border border-green-700"
                 />
 
                 <div className="flex-1 w-full md:w-auto">
-                  <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <p className="text-sm text-gray-400">Precio unitario: ${item.price}</p>
-                  <p className="text-sm text-gray-400">Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
+                  <h3 className="text-lg font-semibold text-green-100">{item.title}</h3>
+                  <p className="text-sm text-green-400">Precio unitario: ${item.price}</p>
+                  <p className="text-sm text-green-400">
+                    Subtotal: ${(item.price * item.quantity).toFixed(2)}
+                  </p>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => quantityRemove(item.id)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded"
+                    className="bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded"
                   >
                     −
                   </button>
-                  <span className="text-lg font-bold">{item.quantity}</span>
+                  <span className="text-lg font-bold text-green-200">{item.quantity}</span>
                   <button
                     onClick={() => item.quantity < 10 && addToCart(item)}
-                    className="bg-gray-600 hover:bg-gray-700 text-white px-3 py-1 rounded"
+                    className="bg-green-700 hover:bg-green-600 text-white px-3 py-1 rounded"
                   >
                     +
                   </button>
@@ -85,8 +97,8 @@ export const Cart = () => {
           </AnimatePresence>
         </ul>
 
-        <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-4 gap-4">
-          <p className="text-2xl font-bold text-white">Total: ${total.toFixed(2)}</p>
+        <div className="flex flex-col md:flex-row justify-between items-center border-t border-green-800 pt-4 gap-4">
+          <p className="text-2xl font-bold text-green-200">Total: ${total.toFixed(2)}</p>
           <button
             onClick={() => setModalOpen2(true)}
             className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded-md text-white font-semibold"
@@ -104,21 +116,21 @@ export const Cart = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+              className="bg-[#1a1a1a] text-white p-6 rounded-lg shadow-lg border border-green-700 max-w-sm w-full"
             >
-              <h3 className="text-xl font-semibold mb-4">¿Eliminar producto?</h3>
-              <p className="mb-4">¿Deseás eliminar este producto del carrito?</p>
+              <h3 className="text-xl font-semibold mb-4 text-green-200">¿Eliminar producto?</h3>
+              <p className="mb-4 text-green-400">¿Deseás eliminar este producto del carrito?</p>
               <div className="flex justify-end gap-2">
                 <button
                   onClick={() => setModalOpen(false)}
-                  className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+                  className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded text-white"
                 >
                   Cancelar
                 </button>
@@ -138,7 +150,7 @@ export const Cart = () => {
         )}
       </AnimatePresence>
 
-      {/* Modal: vaciar todo */}
+      {/* Modal: vaciar carrito */}
       <AnimatePresence>
         {modalOpen2 && (
           <motion.div
@@ -146,21 +158,21 @@ export const Cart = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full"
+              className="bg-[#1a1a1a] text-white p-6 rounded-lg shadow-lg border border-green-700 max-w-sm w-full"
             >
-              <h3 className="text-xl font-semibold mb-4">¿Vaciar carrito?</h3>
-              <p className="mb-4">Esta acción eliminará todos los productos.</p>
+              <h3 className="text-xl font-semibold mb-4 text-green-200">¿Vaciar carrito?</h3>
+              <p className="mb-4 text-green-400">Esta acción eliminará todos los productos.</p>
               <div className="flex justify-end gap-2">
                 <button
                   onClick={() => setModalOpen2(false)}
-                  className="bg-gray-200 hover:bg-gray-300 px-4 py-2 rounded"
+                  className="bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded text-white"
                 >
                   Cancelar
                 </button>
@@ -178,6 +190,6 @@ export const Cart = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </main>
   );
 };

@@ -1,27 +1,10 @@
-import { useEffect, useState } from "react";
-import { ProductList } from "../components/ProductList";
 import { Link } from "react-router-dom";
+import ProductosDestacados from "../components/ProductosDestacados";
 
-interface Producto {
-  id: number;
-  title: string;
-  price: number;
-  images: string[];
-}
+
 
 const Home = () => {
-  const [producto, setProducto] = useState<Producto[]>();
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch("https://dummyjson.com/products?limit=50")
-      .then(res => res.json())
-      .then(data => {
-        setProducto(data.products);
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, []);
 
   return (
     <div className="bg-gradient-to-r from-gray-950 via-green-950 to-green-900 min-h-screen text-gray-100">
@@ -43,15 +26,9 @@ const Home = () => {
           <h3 className="text-3xl font-bold bg-gradient-to-r from-green-900 via-gray-200 to-green-100 bg-clip-text text-transparent mb-10 drop-shadow-lg">
             Productos Destacados
           </h3>
-          {loading ? <div className="text-green-100">Cargando Productos...</div> : <ProductList products={producto} />}
+           <ProductosDestacados />
         </div>
       </section>
-
-      <footer className="bg-gradient-to-r from-gray-950 via-green-950 to-green-900 text-green-100 py-10">
-        <div className="container mx-auto text-center">
-          <p>&copy; 2025 Mi Tienda. Todos los derechos reservados.</p>
-        </div>
-      </footer>
     </div>
   );
 };
