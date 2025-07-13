@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../cart/useCart";
 
 interface Producto {
     id: number;

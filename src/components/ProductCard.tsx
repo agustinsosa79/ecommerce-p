@@ -1,5 +1,6 @@
-import { useCart } from "../context/CartContext";
+import { useCart } from "../cart/useCart";
 import { AnimatePresence, motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 interface Producto {
   id: number;
@@ -43,6 +44,11 @@ const ProductCard = ({ producto }: Props) => {
           <p className="mt-2 text-xl font-bold text-green-100">
             ${producto.price.toFixed(2)}
           </p>
+
+          <Link to={`/products/${producto.id}`} className="mt-2 text-sm text-green-100 hover:underline">
+            Ver detalles
+          </Link>
+
 
           <button
             className="mt-auto bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-semibold py-2 rounded-md transition-colors shadow-md"
