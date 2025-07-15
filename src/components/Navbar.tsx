@@ -28,7 +28,7 @@ const Navbar = () => {
           strokeLinejoin="round"
         />
         </svg>
-        VAGE
+        ShopTime
       </Link>
 
       {/* Navigation */}
