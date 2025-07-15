@@ -10,7 +10,6 @@ const Navbar = () => {
   return (
     <header className="relative bg-gradient-to-r from-gray-950 via-green-950 to-green-900 shadow-[0_4px_16px_-4px_rgba(0,0,0,0.5)] top-0 z-50">
       <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      {/* Logo */}
       <Link
         to="/"
         className="flex items-center gap-3 text-4xl font-extrabold tracking-tight bg-gradient-to-r from-green-900 via-gray-200 to-green-100 bg-clip-text text-transparent drop-shadow-lg hover:scale-105 transition-transform duration-200"
@@ -29,7 +28,7 @@ const Navbar = () => {
           strokeLinejoin="round"
         />
         </svg>
-        Tu Tienda
+        VAGE
       </Link>
 
       {/* Navigation */}

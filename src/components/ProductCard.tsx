@@ -11,10 +11,16 @@ interface Producto {
 
 interface Props {
   producto: Producto;
+  onAdd: () => void;
 }
 
-const ProductCard = ({ producto }: Props) => {
+const ProductCard = ({ producto, onAdd }: Props) => {
   const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(producto);
+    onAdd();
+  };
 
   return (
     <AnimatePresence>
@@ -23,13 +29,13 @@ const ProductCard = ({ producto }: Props) => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.2 }}
-        className="bg-gradient-to-br from-green-100 via-green-200 to-green-300 rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col text-green-950"
+        className="rounded-lg shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col text-green-950"
       >
-        <div className="h-56 flex items-center justify-center bg-gradient-to-r from-green-200 via-gray-100 to-green-100">
+        <div className="h-56 flex items-center justify-center">
           <img
             src={producto.images[0]}
             alt={producto.title}
-            className="max-h-full max-w-full object-contain"
+            className="h-full w-full object-contain bg-gradient-to-t from-gray-500 via-gray-400 to-gray-300"
             loading="lazy"
           />
         </div>
@@ -45,19 +51,24 @@ const ProductCard = ({ producto }: Props) => {
             ${producto.price.toFixed(2)}
           </p>
 
-          <Link to={`/products/${producto.id}`} className="mt-2 text-sm text-green-100 hover:underline">
+          <div className="flex-1 flex items-end gap-3">
+            <Link
+                to={`/products/${producto.id}`}
+                className="inline-block mt-2 text-center text-sm font-medium text-white bg-blue-600 px-4 m-1 p-3 rounded-lg hover:bg-blue-700 transition-colors"
+                >
             Ver detalles
-          </Link>
+            </Link>
 
-
-          <button
-            className="mt-auto bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 text-white font-semibold py-2 rounded-md transition-colors shadow-md"
-            type="button"
-            onClick={() => addToCart(producto)}
-          >
-            Agregar al carrito
-          </button>
+            <button
+                className="mt-auto text-sm bg-green-600 hover:bg-green-700 text-white font-semibold m-1 p-3 rounded transition-colors"
+                type="button"
+                onClick={handleAddToCart}
+                >
+                Agregar al carrito
+            </button>
+                </div>
         </div>
+            
       </motion.div>
     </AnimatePresence>
   );

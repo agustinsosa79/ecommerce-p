@@ -29,7 +29,7 @@ const FilterOfCategory = ({ onCategoryChange }: Props) => {
       <select
         id="category"
         onChange={(e) => onCategoryChange(e.target.value)}
-        className="bg-indigo-950 text-white p-3 rounded-lg border border-indigo-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
+        className="bg-gray-950 text-white p-3 rounded-lg border border-green-700 shadow-sm focus:outline-none focus:ring-2 focus:green-500 border-none focus:border-green-500 transition-colors"
       >
         <option value="">Todas las categorías</option>
         {categories.map((cat) => (
